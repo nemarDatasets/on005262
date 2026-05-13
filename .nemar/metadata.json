@@ -1,0 +1,27 @@
+{
+  "version": "2.0",
+  "dataset_id": "on005262",
+  "source": "openneuro",
+  "source_id": "ds005262",
+  "title": "ArEEG: Arabic Inner Speech EEG dataset",
+  "authors": {
+    "Donia Metwalli": {},
+    "Eslam Ahmed": {},
+    "Antony Emil": {},
+    "Yousef A. Radwan": {},
+    "Mariam Barakat": {},
+    "Anas Ahmed": {},
+    "Amro Omar": {},
+    "Sahar Selim": {}
+  },
+  "license": "CC0",
+  "dataset_type": "raw",
+  "related_identifiers": [
+    {
+      "identifier": "10.18112/openneuro.ds005262.v1.0.1",
+      "identifier_type": "DOI",
+      "relation_type": "IsIdenticalTo"
+    }
+  ],
+  "pipeline_stage": "seeded"
+}
