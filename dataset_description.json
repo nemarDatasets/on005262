@@ -19,5 +19,12 @@
       "DOI": "doi:10.18112/openneuro.ds005262.v1.0.1"
     }
   ],
-  "Version": "1.0.0"
+  "GeneratedBy": [
+    {
+      "Name": "nemar-cli",
+      "Version": "0.8.8",
+      "CodeURL": "https://github.com/nemar-org/nemar-cli"
+    }
+  ],
+  "Version": "1.0.2"
 }
