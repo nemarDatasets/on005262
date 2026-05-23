@@ -2,6 +2,7 @@
   "version": "2.0",
   "pipeline_stage": "validated",
   "title": "ArEEG: Arabic Inner Speech EEG dataset",
+  "description": "ArEEG is an open-access electroencephalography dataset comprising inner speech recordings from 12 Arabic-speaking subjects during tasks with visual cues presented in Modern Standard Arabic. This dataset provides a resource for investigating neural correlates of inner speech processing and developing brain-computer interfaces for Arabic language applications.",
   "license": "CC0",
   "dataset_type": "raw",
   "authors": {
@@ -14,40 +15,6 @@
     "Amro Omar": {},
     "Sahar Selim": {}
   },
-  "related_identifiers": [
-    {
-      "identifier": "10.18112/openneuro.ds005262.v1.0.1",
-      "identifier_type": "DOI",
-      "relation_type": "IsDerivedFrom"
-    },
-    {
-      "identifier": "https://github.com/nemarDatasets/on005262",
-      "identifier_type": "URL",
-      "relation_type": "IsDescribedBy"
-    },
-    {
-      "identifier": "https://nemar.org/dataexplorer/detail?dataset_id=on005262",
-      "identifier_type": "URL",
-      "relation_type": "IsDescribedBy"
-    }
-  ],
-  "resource_type_general": "Dataset",
-  "modalities": [
-    "eeg"
-  ],
-  "resource_type_specific": "EEG Dataset",
-  "sizes": [
-    "722.2 MB (559 files)"
-  ],
-  "formats": [
-    ".eeg",
-    ".json",
-    ".md",
-    ".vhdr",
-    ".vmrk",
-    ".yml"
-  ],
-  "description": "ArEEG is an open-access electroencephalography dataset comprising inner speech recordings from 12 Arabic-speaking subjects during tasks with visual cues presented in Modern Standard Arabic. This dataset provides a resource for investigating neural correlates of inner speech processing and developing brain-computer interfaces for Arabic language applications.",
   "keywords": [
     {
       "term": "EEG"
@@ -67,6 +34,39 @@
     {
       "term": "neuroimaging"
     }
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.18112/openneuro.ds005262.v1.0.1",
+      "identifier_type": "DOI",
+      "relation_type": "IsDerivedFrom"
+    },
+    {
+      "identifier": "https://github.com/nemarDatasets/on005262",
+      "identifier_type": "URL",
+      "relation_type": "IsDescribedBy"
+    },
+    {
+      "identifier": "https://nemar.org/dataexplorer/detail?dataset_id=on005262",
+      "identifier_type": "URL",
+      "relation_type": "IsDescribedBy"
+    }
+  ],
+  "resource_type_general": "Dataset",
+  "resource_type_specific": "EEG Dataset",
+  "modalities": [
+    "eeg"
+  ],
+  "sizes": [
+    "722.2 MB (559 files)"
+  ],
+  "formats": [
+    ".eeg",
+    ".json",
+    ".md",
+    ".vhdr",
+    ".vmrk",
+    ".yml"
   ],
   "source_hash": "dd44e47c85b3fd080f4c5618041c273b106e71c417e0e5aa5cbcf90ebc9f451e"
 }
