@@ -5,27 +5,32 @@
 This dataset is a collection of Inner Speech EEG recordings from 12 subjects, 7 males and 5 females with visual cues written in Modern Standard Arabic.
 Go to [GitHub Repository](https://github.com/Eslam21/ArEEG-an-Open-Access-Arabic-Inner-Speech-EEG-Dataset) for usage instructions.
 
-## NEMAR curation changes (2026-05-21)
+## NEMAR curation changes (2026-05-21, revised 2026-05-27)
 
-BIDS validator: 2790 errors + 15626 warnings -> 0 errors + 10045 warnings. Raw BrainVision binary payloads (`.eeg`, `.vhdr`, `.vmrk`) unchanged.
+The BIDS validator went from 2790 errors + 15626 warnings to 0 errors + 10046 warnings. None of the raw `.eeg` files were modified — every change is to a text sidecar.
 
-### `task-innerspeech_eeg.json` (new, root inheriting sidecar)
-- Added a single root sidecar carrying the values that are invariant across all 186 per-session recordings. BIDS inheritance broadcasts it to every `sub-*/ses-*/eeg/sub-*_ses-*_task-innerspeech_eeg.{eeg,vhdr,vmrk}` triplet. Why: the dataset shipped with no `_eeg.json` sidecars at all, so every required-EEG-key validator check (`TaskName`, `SamplingFrequency`, `PowerLineFrequency`, `EEGReference`, `SoftwareFilters`) fired once per file extension per recording = 558 x 5 = 2790 `SIDECAR_KEY_REQUIRED` errors. One root sidecar with these five keys closes all of them.
-- `TaskName: "innerspeech"`. Why: matches the `task-innerspeech` entity in every recording filename.
-- `SamplingFrequency: 250`. Why: derived from the BrainVision header (`SamplingInterval=4000` microseconds = 250 Hz) and confirmed against the harness `raw_meta.json` (`loaded.sfreq=250.0` for all 186 recordings).
-- `PowerLineFrequency: "n/a"`. Why: BIDS allows `"n/a"` when the value is not documented; the recording site's grid frequency is not stated in the source dataset, so inferring 50 vs 60 Hz from author affiliations would violate the "do not invent metadata" rule.
-- `EEGReference: "Not documented in source recording"`. Why: the BrainVision channel-info block declares an empty per-channel reference (`Ch1=Fz,,...`) and the source dataset does not specify the reference scheme anywhere; this string preserves the fact rather than guessing a value.
-- `SoftwareFilters: "n/a"`. Why: BIDS-allowed when no software filters were applied; the source dataset documents none.
-- `EEGChannelCount: 8`, `EOGChannelCount: 0`, `ECGChannelCount: 0`, `EMGChannelCount: 0`, `MISCChannelCount: 0`, `TriggerChannelCount: 0`. Why: the BrainVision header lists exactly 8 channels (`Fz`, `C3`, `Cz`, `C4`, `Pz`, `PO7`, `OZ`, `PO8`), all standard scalp-EEG electrode labels; no EOG/ECG/EMG/MISC/Trigger labels appear. Closes 5 x 558 = 2790 channel-count `SIDECAR_KEY_RECOMMENDED` warnings.
-- `EEGPlacementScheme: "10-10"`. Why: the channel set mixes 10-20 positions (Fz/C3/Cz/C4/Pz) with extended 10-10 positions (PO7/OZ/PO8); per the BIDS convention the broader 10-10 label covers both.
-- `RecordingType: "continuous"`. Why: BrainVision binary continuous format (`DataFormat=BINARY`, `DataOrientation=MULTIPLEXED` in the .vhdr header); no epoch boundaries in the data file.
-- `TaskDescription`. Why: paraphrased verbatim from this README's existing task description ("Inner Speech EEG recordings ... with visual cues written in Modern Standard Arabic"); closes 558 `SIDECAR_KEY_RECOMMENDED:TaskDescription` warnings.
+**Root recording sidecar added (`task-innerspeech_eeg.json`)**
 
-### `dataset_description.json` (edit)
-- Added `GeneratedBy: [{Name: "nemar-cli", Version: "0.8.8", CodeURL: "..."}]`. Why: closes the one `JSON_KEY_RECOMMENDED:GeneratedBy` warning and documents that the dataset passed through the NEMAR curation tooling. `DatasetType: "raw"` was already present, so this addition does not trigger the derivative-rules cascade.
+The dataset shipped with no `_eeg.json` sidecars at all, which is what produced the 2790 validator errors (the required EEG keys were missing for every one of the 186 recordings, multiplied across file extensions). A single sidecar was placed at the dataset root; BIDS inheritance applies it to every `sub-*/ses-*/eeg/sub-*_ses-*_task-innerspeech_eeg.{eeg,vhdr,vmrk}` triplet. The fields it carries:
+- `TaskName: "innerspeech"` — matches the `task-innerspeech` entity in every recording filename.
+- `SamplingFrequency: 250` — read from the BrainVision header (`SamplingInterval=4000` microseconds works out to 250 Hz) and confirmed against the loaded data for all 186 recordings.
+- `PowerLineFrequency: "n/a"` — the recording site's grid frequency is not stated anywhere in the source dataset, so the BIDS-allowed `"n/a"` was used rather than guessing 50 or 60 Hz from author affiliations.
+- `EEGReference: "Not documented in source recording"` — the BrainVision channel-info block declares an empty per-channel reference and the source dataset doesn't specify the scheme anywhere; this string records the fact rather than inventing a reference electrode.
+- `SoftwareFilters: "n/a"` — the source dataset documents no software filters, and `"n/a"` is BIDS-allowed when none were applied.
+- `EEGChannelCount: 8`, with `EOGChannelCount`, `ECGChannelCount`, `EMGChannelCount`, `MISCChannelCount`, and `TriggerChannelCount` all set to `0`. The BrainVision header lists exactly 8 channels (`Fz`, `C3`, `Cz`, `C4`, `Pz`, `PO7`, `OZ`, `PO8`), all standard scalp-EEG labels; no auxiliary or trigger channels appear.
+- `EEGPlacementScheme: "10-10"` — the channel set mixes 10-20 positions (Fz/C3/Cz/C4/Pz) with extended 10-10 positions (PO7/OZ/PO8); the broader 10-10 label covers both per BIDS convention.
+- `RecordingType: "continuous"` — the BrainVision file is a continuous binary recording (`DataFormat=BINARY`, `DataOrientation=MULTIPLEXED`), with no epoch boundaries.
+- `TaskDescription` — paraphrased from this README's existing task description ("Inner Speech EEG recordings ... with visual cues written in Modern Standard Arabic") so the validator has a recommended description to read.
 
-### Out of mechanical scope (warnings deliberately left in place)
-- `EVENTS_TSV_MISSING` (558). Why: no per-recording `_events.tsv` files exist; deriving them from the BrainVision `.vmrk` marker files would require per-recording binary inspection (loading 186 .vhdr files via MNE) which sits outside the mechanical-sidecar envelope of this curation pass.
-- `SIDECAR_KEY_RECOMMENDED:RecordingDuration` (558). Why: per-recording value (`ntimes / sfreq` varies recording-to-recording), so it cannot go in the root inheriting sidecar; creating 186 per-recording sidecars to close one warning each was judged not worth the file-count cost.
-- Tier-C recommended-but-undocumented fields (~558 each, 16 fields): `Manufacturer`, `ManufacturersModelName`, `SoftwareVersions`, `DeviceSerialNumber`, `Instructions`, `CogAtlasID`, `CogPOID`, `InstitutionName`, `InstitutionAddress`, `InstitutionalDepartmentName`, `CapManufacturer`, `CapManufacturersModelName`, `EEGGround`, `HeadCircumference`, `HardwareFilters`, `SubjectArtefactDescription`. Why: none are documented in the source dataset (README, dataset_description.json, BrainVision header, or per-recording sidecars), and filling them with placeholders or guesses would violate the 100% defensibility rule. These need input from the original authors.
-- `JSON_KEY_RECOMMENDED:HEDVersion` (1). Why: the dataset does not use HED tags, so declaring an HED schema version would be misleading.
+**Dataset description (`dataset_description.json`)**
+- Updated BIDSVersion from 1.9.0 to 1.11.1 (the version the current validator checks against).
+- GeneratedBy was left absent, exactly as the source published it — nothing was added there.
+
+**Remaining warnings (10046) — left on purpose**
+
+This dataset has a lot of recommended-but-missing fields that need information from the study, lab, or equipment that isn't in the dataset, plus a few structural items that sit outside a mechanical sidecar pass. They were left blank rather than filled with guesses:
+- Per-recording event tables (`_events.tsv`) are not present. Deriving them from the BrainVision `.vmrk` marker files would require loading every recording in MNE, which goes beyond a text-sidecar cleanup.
+- Per-recording duration varies from file to file, so it can't live in the root sidecar; creating 186 per-recording sidecars just to record a duration was judged not worth the file-count cost.
+- Hardware and lab descriptors that aren't documented anywhere in the source — manufacturer and model name, software versions, device serial number, cap manufacturer and model, head circumference, hardware filters, ground electrode, institution name and address and department, instructions, cognitive-atlas IDs, and subject-artefact notes. None of these can be filled in without contacting the original authors.
+- The HED schema version, since this dataset doesn't use HED tags.
+- GeneratedBy on the dataset description, intentionally left absent so the file matches what the source published.
