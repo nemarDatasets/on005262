@@ -1,0 +1,16 @@
+{
+  "TaskName": "innerspeech",
+  "SamplingFrequency": 250,
+  "PowerLineFrequency": "n/a",
+  "EEGReference": "Not documented in source recording",
+  "SoftwareFilters": "n/a",
+  "EEGChannelCount": 8,
+  "EOGChannelCount": 0,
+  "ECGChannelCount": 0,
+  "EMGChannelCount": 0,
+  "MISCChannelCount": 0,
+  "TriggerChannelCount": 0,
+  "EEGPlacementScheme": "10-10",
+  "RecordingType": "continuous",
+  "TaskDescription": "Inner speech EEG recordings collected while participants viewed visual word cues written in Modern Standard Arabic."
+}
