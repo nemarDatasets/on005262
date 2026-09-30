@@ -2,7 +2,7 @@
   "version": "2.0",
   "pipeline_stage": "validated",
   "title": "ArEEG: Arabic Inner Speech EEG dataset",
-  "description": "ArEEG is an open-access electroencephalography dataset comprising inner speech recordings from 12 Arabic-speaking subjects during tasks with visual cues presented in Modern Standard Arabic. This dataset provides a resource for investigating neural correlates of inner speech processing and developing brain-computer interfaces for Arabic language applications.",
+  "description": "ArEEG is an open-access electroencephalography (EEG) dataset of inner speech recorded from 12 participants (7 male, 5 female). Participants were shown visual cues written in Modern Standard Arabic. The dataset supports research on Arabic inner speech decoding and brain-computer interfaces.",
   "license": "CC0",
   "dataset_type": "raw",
   "authors": {
@@ -23,16 +23,15 @@
       "term": "inner speech"
     },
     {
-      "term": "brain-computer interfaces"
+      "term": "Arabic"
     },
     {
-      "term": "Arabic language"
+      "term": "brain-computer interface"
     },
     {
-      "term": "motor imagery"
-    },
-    {
-      "term": "neuroimaging"
+      "term": "Electroencephalography",
+      "subject_scheme": "MeSH",
+      "value_uri": "http://id.nlm.nih.gov/mesh/D004569"
     }
   ],
   "related_identifiers": [
@@ -47,7 +46,7 @@
       "relation_type": "IsDescribedBy"
     },
     {
-      "identifier": "https://nemar.org/dataexplorer/detail?dataset_id=on005262",
+      "identifier": "https://nemar.org/dataset/on005262",
       "identifier_type": "URL",
       "relation_type": "IsDescribedBy"
     }
@@ -58,7 +57,7 @@
     "eeg"
   ],
   "sizes": [
-    "722.2 MB (559 files)"
+    "689 MB (559 files)"
   ],
   "formats": [
     ".eeg",
@@ -68,5 +67,6 @@
     ".vmrk",
     ".yml"
   ],
+  "methods_description": "EEG was recorded from 12 subjects performing inner speech in response to visual cues written in Modern Standard Arabic.",
   "source_hash": "dd44e47c85b3fd080f4c5618041c273b106e71c417e0e5aa5cbcf90ebc9f451e"
 }
