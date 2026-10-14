@@ -2,7 +2,8 @@
   "version": "2.0",
   "pipeline_stage": "validated",
   "title": "ArEEG: Arabic Inner Speech EEG dataset",
-  "description": "ArEEG is an open-access electroencephalography (EEG) dataset of inner speech recorded from 12 participants (7 male, 5 female). Participants were shown visual cues written in Modern Standard Arabic. The dataset supports research on Arabic inner speech decoding and brain-computer interfaces.",
+  "description": "ArEEG is an open-access EEG dataset of inner speech recorded from 12 participants (7 males, 5 females) who were shown visual cues written in Modern Standard Arabic. It comprises 186 continuous recordings from 8 scalp electrodes (Fz, C3, Cz, C4, Pz, PO7, Oz, PO8) sampled at 250 Hz. The dataset supports research on Arabic inner speech decoding and brain-computer interfaces.",
+  "methods_description": "Continuous BrainVision EEG was recorded at 250 Hz from 8 scalp channels placed per the 10-10 system while participants silently produced inner speech in response to visual cues written in Modern Standard Arabic.",
   "license": "CC0",
   "dataset_type": "raw",
   "authors": {
@@ -29,9 +30,7 @@
       "term": "brain-computer interface"
     },
     {
-      "term": "Electroencephalography",
-      "subject_scheme": "MeSH",
-      "value_uri": "http://id.nlm.nih.gov/mesh/D004569"
+      "term": "speech imagery"
     }
   ],
   "related_identifiers": [
@@ -63,10 +62,10 @@
     ".eeg",
     ".json",
     ".md",
+    ".tsv",
     ".vhdr",
     ".vmrk",
     ".yml"
   ],
-  "methods_description": "EEG was recorded from 12 subjects performing inner speech in response to visual cues written in Modern Standard Arabic.",
-  "source_hash": "dd44e47c85b3fd080f4c5618041c273b106e71c417e0e5aa5cbcf90ebc9f451e"
+  "source_hash": "fea741ddda887f687c4e19f31b523588f96a26f5bb8c14542baa5673360b4e45"
 }
